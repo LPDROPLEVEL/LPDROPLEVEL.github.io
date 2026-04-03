@@ -52,6 +52,7 @@
 
     <div class="container">
         <div class="progress-bar"><div class="progress" id="progress"></div></div>
+
         <div id="quiz" class="section"></div>
 
         <div id="result" class="section result">
@@ -60,10 +61,14 @@
             <h2 id="level-name" style="font-size:2.3rem; margin:10px 0;"></h2>
             <p id="level-desc" style="max-width:700px; margin:25px auto; line-height:1.5;"></p>
             <div class="spots-left">347 / 500 SPOTS LEFT FOR LEVEL 3 FREE</div>
-            <div style="max-width:520px; margin:40px auto;">
-                <input type="email" id="user-email" placeholder="your@email.com" style="width:100%; padding:18px; font-size:1.15rem; background:#220044; border:3px solid #00ff9d; border-radius:12px; color:white; margin-bottom:15px;">
-                <button onclick="submitEmail()">JOIN WAITLIST → UNLOCK LEVEL 3 FREE</button>
-            </div>
+
+            <!-- FORMSPREE FORM -->
+            <form action="https://formspree.io/f/xzdkaqgo" method="POST" style="max-width:520px; margin:40px auto;">
+                <input type="email" name="email" placeholder="your@email.com" required
+                       style="width:100%; padding:18px; font-size:1.15rem; background:#220044; border:3px solid #00ff9d; border-radius:12px; color:white; margin-bottom:15px;">
+                <input type="hidden" name="_subject" value="New DropLevel Waitlist Subscriber">
+                <button type="submit">JOIN WAITLIST → UNLOCK LEVEL 3 FREE</button>
+            </form>
         </div>
 
         <div class="section">
@@ -83,6 +88,7 @@
     </div>
 
     <script>
+        // (Le script du quiz reste identique)
         function createParticle() {
             const p = document.createElement('div');
             p.textContent = ['₿','⟠','◎','▲','◆','★','⟡'][Math.floor(Math.random()*7)];
@@ -97,7 +103,7 @@
             setTimeout(() => p.remove(), 10500);
         }
 
-        const questions = [
+        const questions = [ /* ... même tableau de questions que avant ... */ 
             { q: "What protocol do you farm the most right now?", options: ["Nothing or just small tests", "One or two Layer 1 (ETH, SOL...)", "Multiple L2 + DeFi", "Full ecosystem (perps, points, referrals)"], values: [1,2,3,4] },
             { q: "How much time do you spend per week on airdrops?", options: ["Less than 2 hours (casual)", "2 to 5 hours", "5 to 10 hours", "More than 10 hours (daily)"], values: [1,2,3,4] },
             { q: "Have you ever done Liquidity Providing (LP) to farm?", options: ["Never", "Once or twice", "Regularly", "Yes + I optimize loops"], values: [1,2,3,4] },
@@ -149,13 +155,6 @@
             document.getElementById('level-badge').textContent = badge;
             document.getElementById('level-name').textContent = name;
             document.getElementById('level-desc').textContent = desc;
-        }
-
-        function submitEmail() {
-            const email = document.getElementById('user-email').value.trim();
-            if (!email || !email.includes('@')) return alert("Please enter a valid email!");
-            alert(`✅ Thank you! ${email} is now on the waitlist.\nLevel 3 + AI Coach coming soon 🔥`);
-            document.getElementById('user-email').value = '';
         }
 
         window.onload = () => {
